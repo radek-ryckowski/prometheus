@@ -3,16 +3,22 @@ load("@io_bazel_rules_go//go:def.bzl", "go_library", "go_test")
 go_library(
     name = "record",
     srcs = ["record.go"],
-    importpath = "github.com/example/project/tsdb/record",
+    importpath = "github.com/prometheus/prometheus/tsdb/record",
     visibility = ["//visibility:public"],
     deps = [
+        "//model/labels",
+        "//storage",
+        "//tsdb/chunks",
+        "//tsdb/encoding",
+        "//tsdb/tombstones",
         "@com_github_pkg_errors//:errors",
-        "@com_github_prometheus_prometheus//model/labels:go_default_library",
-        "@com_github_prometheus_prometheus//storage:go_default_library",
-        "@com_github_prometheus_prometheus//tsdb/chunks:go_default_library",
-        "@com_github_prometheus_prometheus//tsdb/encoding:go_default_library",
-        "@com_github_prometheus_prometheus//tsdb/tombstones:go_default_library",
     ],
+)
+
+alias(
+    name = "go_default_library",
+    actual = ":record",
+    visibility = ["//visibility:public"],
 )
 
 go_test(
@@ -20,10 +26,10 @@ go_test(
     srcs = ["record_test.go"],
     embed = [":record"],
     deps = [
+        "//model/labels",
+        "//tsdb/encoding",
+        "//tsdb/tombstones",
         "@com_github_pkg_errors//:errors",
-        "@com_github_prometheus_prometheus//model/labels:go_default_library",
-        "@com_github_prometheus_prometheus//tsdb/encoding:go_default_library",
-        "@com_github_prometheus_prometheus//tsdb/tombstones:go_default_library",
         "@com_github_stretchr_testify//require",
     ],
 )

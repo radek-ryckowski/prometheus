@@ -6,11 +6,17 @@ go_library(
         "doc.go",
         "ui.go",
     ],
-    importpath = "github.com/example/project/web/ui",
+    importpath = "github.com/prometheus/prometheus/web/ui",
     visibility = ["//visibility:public"],
     deps = [
         "@com_github_shurcool_httpfs//filter",
         "@com_github_shurcool_httpfs//union",
         "@com_github_shurcool_vfsgen//:vfsgen",
     ],
+)
+
+alias(
+    name = "go_default_library",
+    actual = ":ui",
+    visibility = ["//visibility:public"],
 )

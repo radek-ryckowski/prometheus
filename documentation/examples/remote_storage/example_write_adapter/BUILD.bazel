@@ -3,11 +3,11 @@ load("@io_bazel_rules_go//go:def.bzl", "go_binary", "go_library")
 go_library(
     name = "example_write_adapter_lib",
     srcs = ["server.go"],
-    importpath = "github.com/example/project/documentation/examples/remote_storage/example_write_adapter",
+    importpath = "github.com/prometheus/prometheus/documentation/examples/remote_storage/example_write_adapter",
     visibility = ["//visibility:private"],
     deps = [
+        "//storage/remote",
         "@com_github_prometheus_common//model",
-        "@com_github_prometheus_prometheus//storage/remote:go_default_library",
     ],
 )
 

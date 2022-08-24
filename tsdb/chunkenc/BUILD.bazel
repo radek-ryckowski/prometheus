@@ -7,9 +7,15 @@ go_library(
         "chunk.go",
         "xor.go",
     ],
-    importpath = "github.com/example/project/tsdb/chunkenc",
+    importpath = "github.com/prometheus/prometheus/tsdb/chunkenc",
     visibility = ["//visibility:public"],
     deps = ["@com_github_pkg_errors//:errors"],
+)
+
+alias(
+    name = "go_default_library",
+    actual = ":chunkenc",
+    visibility = ["//visibility:public"],
 )
 
 go_test(

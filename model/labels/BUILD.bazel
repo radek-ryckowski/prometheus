@@ -8,7 +8,7 @@ go_library(
         "regexp.go",
         "test_utils.go",
     ],
-    importpath = "github.com/example/project/model/labels",
+    importpath = "github.com/prometheus/prometheus/model/labels",
     visibility = ["//visibility:public"],
     deps = [
         "@com_github_cespare_xxhash_v2//:xxhash",
@@ -16,6 +16,12 @@ go_library(
         "@com_github_grafana_regexp//syntax",
         "@com_github_pkg_errors//:errors",
     ],
+)
+
+alias(
+    name = "go_default_library",
+    actual = ":labels",
+    visibility = ["//visibility:public"],
 )
 
 go_test(

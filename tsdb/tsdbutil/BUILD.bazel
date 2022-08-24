@@ -8,21 +8,27 @@ go_library(
         "dir_locker.go",
         "dir_locker_testutil.go",
     ],
-    importpath = "github.com/example/project/tsdb/tsdbutil",
+    importpath = "github.com/prometheus/prometheus/tsdb/tsdbutil",
     visibility = ["//visibility:public"],
     deps = [
+        "//tsdb/chunkenc",
+        "//tsdb/chunks",
+        "//tsdb/errors",
+        "//tsdb/fileutil",
+        "//util/testutil",
         "@com_github_go_kit_log//:log",
         "@com_github_go_kit_log//level",
         "@com_github_pkg_errors//:errors",
         "@com_github_prometheus_client_golang//prometheus",
         "@com_github_prometheus_client_golang//prometheus/testutil",
-        "@com_github_prometheus_prometheus//tsdb/chunkenc:go_default_library",
-        "@com_github_prometheus_prometheus//tsdb/chunks:go_default_library",
-        "@com_github_prometheus_prometheus//tsdb/errors:go_default_library",
-        "@com_github_prometheus_prometheus//tsdb/fileutil:go_default_library",
-        "@com_github_prometheus_prometheus//util/testutil:go_default_library",
         "@com_github_stretchr_testify//require",
     ],
+)
+
+alias(
+    name = "go_default_library",
+    actual = ":tsdbutil",
+    visibility = ["//visibility:public"],
 )
 
 go_test(
@@ -33,8 +39,8 @@ go_test(
     ],
     embed = [":tsdbutil"],
     deps = [
+        "//util/testutil",
         "@com_github_go_kit_log//:log",
-        "@com_github_prometheus_prometheus//util/testutil:go_default_library",
         "@com_github_stretchr_testify//require",
     ],
 )

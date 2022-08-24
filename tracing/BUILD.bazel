@@ -3,15 +3,15 @@ load("@io_bazel_rules_go//go:def.bzl", "go_library", "go_test")
 go_library(
     name = "tracing",
     srcs = ["tracing.go"],
-    importpath = "github.com/example/project/tracing",
+    importpath = "github.com/prometheus/prometheus/tracing",
     visibility = ["//visibility:public"],
     deps = [
+        "//config",
         "@com_github_go_kit_log//:log",
         "@com_github_go_kit_log//level",
         "@com_github_pkg_errors//:errors",
         "@com_github_prometheus_common//config",
         "@com_github_prometheus_common//version",
-        "@com_github_prometheus_prometheus//config:go_default_library",
         "@io_opentelemetry_go_otel//:otel",
         "@io_opentelemetry_go_otel//propagation",
         "@io_opentelemetry_go_otel//semconv/v1.7.0:v1_7_0",
@@ -25,15 +25,21 @@ go_library(
     ],
 )
 
+alias(
+    name = "go_default_library",
+    actual = ":tracing",
+    visibility = ["//visibility:public"],
+)
+
 go_test(
     name = "tracing_test",
     srcs = ["tracing_test.go"],
     data = glob(["testdata/**"]),
     embed = [":tracing"],
     deps = [
+        "//config",
         "@com_github_go_kit_log//:log",
         "@com_github_prometheus_common//config",
-        "@com_github_prometheus_prometheus//config:go_default_library",
         "@com_github_stretchr_testify//require",
         "@io_opentelemetry_go_otel//:otel",
         "@io_opentelemetry_go_otel_trace//:trace",

@@ -25,7 +25,7 @@ go_library(
         "sync_darwin.go",
         "sync_linux.go",
     ],
-    importpath = "github.com/example/project/tsdb/fileutil",
+    importpath = "github.com/prometheus/prometheus/tsdb/fileutil",
     visibility = ["//visibility:public"],
     deps = [
         "@com_github_pkg_errors//:errors",
@@ -70,9 +70,15 @@ go_library(
     }),
 )
 
+alias(
+    name = "go_default_library",
+    actual = ":fileutil",
+    visibility = ["//visibility:public"],
+)
+
 go_test(
     name = "fileutil_test",
     srcs = ["flock_test.go"],
     embed = [":fileutil"],
-    deps = ["@com_github_prometheus_prometheus//util/testutil:go_default_library"],
+    deps = ["//util/testutil"],
 )

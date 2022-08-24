@@ -6,7 +6,7 @@ go_library(
         "query_stats.go",
         "timer.go",
     ],
-    importpath = "github.com/example/project/util/stats",
+    importpath = "github.com/prometheus/prometheus/util/stats",
     visibility = ["//visibility:public"],
     deps = [
         "@com_github_prometheus_client_golang//prometheus",
@@ -15,14 +15,20 @@ go_library(
     ],
 )
 
+alias(
+    name = "go_default_library",
+    actual = ":stats",
+    visibility = ["//visibility:public"],
+)
+
 go_test(
     name = "stats_test",
     srcs = ["stats_test.go"],
     embed = [":stats"],
     deps = [
+        "//util/testutil",
         "@com_github_grafana_regexp//:regexp",
         "@com_github_prometheus_client_golang//prometheus",
-        "@com_github_prometheus_prometheus//util/testutil:go_default_library",
         "@com_github_stretchr_testify//require",
     ],
 )

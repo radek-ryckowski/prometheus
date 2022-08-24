@@ -7,12 +7,18 @@ go_library(
         "context.go",
         "cors.go",
     ],
-    importpath = "github.com/example/project/util/httputil",
+    importpath = "github.com/prometheus/prometheus/util/httputil",
     visibility = ["//visibility:public"],
     deps = [
+        "//promql",
         "@com_github_grafana_regexp//:regexp",
-        "@com_github_prometheus_prometheus//promql:go_default_library",
     ],
+)
+
+alias(
+    name = "go_default_library",
+    actual = ":httputil",
+    visibility = ["//visibility:public"],
 )
 
 go_test(

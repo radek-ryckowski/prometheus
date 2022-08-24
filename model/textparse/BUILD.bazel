@@ -9,14 +9,20 @@ go_library(
         "promlex.l.go",
         "promparse.go",
     ],
-    importpath = "github.com/example/project/model/textparse",
+    importpath = "github.com/prometheus/prometheus/model/textparse",
     visibility = ["//visibility:public"],
     deps = [
+        "//model/exemplar",
+        "//model/labels",
+        "//model/value",
         "@com_github_pkg_errors//:errors",
-        "@com_github_prometheus_prometheus//model/exemplar:go_default_library",
-        "@com_github_prometheus_prometheus//model/labels:go_default_library",
-        "@com_github_prometheus_prometheus//model/value:go_default_library",
     ],
+)
+
+alias(
+    name = "go_default_library",
+    actual = ":textparse",
+    visibility = ["//visibility:public"],
 )
 
 go_test(
@@ -28,10 +34,10 @@ go_test(
     ],
     embed = [":textparse"],
     deps = [
+        "//model/exemplar",
+        "//model/labels",
         "@com_github_prometheus_common//expfmt",
         "@com_github_prometheus_common//model",
-        "@com_github_prometheus_prometheus//model/exemplar:go_default_library",
-        "@com_github_prometheus_prometheus//model/labels:go_default_library",
         "@com_github_stretchr_testify//require",
     ],
 )

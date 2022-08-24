@@ -10,11 +10,17 @@ go_library(
         "roundtrip.go",
         "testing.go",
     ],
-    importpath = "github.com/example/project/util/testutil",
+    importpath = "github.com/prometheus/prometheus/util/testutil",
     visibility = ["//visibility:public"],
     deps = [
         "@com_github_go_kit_log//:log",
         "@com_github_stretchr_testify//require",
         "@org_uber_go_goleak//:goleak",
     ],
+)
+
+alias(
+    name = "go_default_library",
+    actual = ":testutil",
+    visibility = ["//visibility:public"],
 )

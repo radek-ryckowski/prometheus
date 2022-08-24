@@ -3,17 +3,23 @@ load("@io_bazel_rules_go//go:def.bzl", "go_library", "go_test")
 go_library(
     name = "influxdb",
     srcs = ["client.go"],
-    importpath = "github.com/example/project/documentation/examples/remote_storage/remote_storage_adapter/influxdb",
+    importpath = "github.com/prometheus/prometheus/documentation/examples/remote_storage/remote_storage_adapter/influxdb",
     visibility = ["//visibility:public"],
     deps = [
+        "//prompb",
         "@com_github_go_kit_log//:log",
         "@com_github_go_kit_log//level",
         "@com_github_influxdata_influxdb//client/v2:go_default_library",
         "@com_github_pkg_errors//:errors",
         "@com_github_prometheus_client_golang//prometheus",
         "@com_github_prometheus_common//model",
-        "@com_github_prometheus_prometheus//prompb:go_default_library",
     ],
+)
+
+alias(
+    name = "go_default_library",
+    actual = ":influxdb",
+    visibility = ["//visibility:public"],
 )
 
 go_test(

@@ -6,9 +6,15 @@ go_library(
         "quote.go",
         "strconv.go",
     ],
-    importpath = "github.com/example/project/util/strutil",
+    importpath = "github.com/prometheus/prometheus/util/strutil",
     visibility = ["//visibility:public"],
     deps = ["@com_github_grafana_regexp//:regexp"],
+)
+
+alias(
+    name = "go_default_library",
+    actual = ":strutil",
+    visibility = ["//visibility:public"],
 )
 
 go_test(

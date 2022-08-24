@@ -7,9 +7,13 @@ go_library(
         "instance.go",
         "openstack.go",
     ],
-    importpath = "github.com/example/project/discovery/openstack",
+    importpath = "github.com/prometheus/prometheus/discovery/openstack",
     visibility = ["//visibility:public"],
     deps = [
+        "//discovery",
+        "//discovery/refresh",
+        "//discovery/targetgroup",
+        "//util/strutil",
         "@com_github_go_kit_log//:log",
         "@com_github_go_kit_log//level",
         "@com_github_gophercloud_gophercloud//:gophercloud",
@@ -22,11 +26,13 @@ go_library(
         "@com_github_pkg_errors//:errors",
         "@com_github_prometheus_common//config",
         "@com_github_prometheus_common//model",
-        "@com_github_prometheus_prometheus//discovery:go_default_library",
-        "@com_github_prometheus_prometheus//discovery/refresh:go_default_library",
-        "@com_github_prometheus_prometheus//discovery/targetgroup:go_default_library",
-        "@com_github_prometheus_prometheus//util/strutil:go_default_library",
     ],
+)
+
+alias(
+    name = "go_default_library",
+    actual = ":openstack",
+    visibility = ["//visibility:public"],
 )
 
 go_test(

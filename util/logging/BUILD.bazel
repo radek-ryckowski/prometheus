@@ -7,7 +7,7 @@ go_library(
         "file.go",
         "ratelimit.go",
     ],
-    importpath = "github.com/example/project/util/logging",
+    importpath = "github.com/prometheus/prometheus/util/logging",
     visibility = ["//visibility:public"],
     deps = [
         "@com_github_go_kit_log//:log",
@@ -15,6 +15,12 @@ go_library(
         "@com_github_pkg_errors//:errors",
         "@org_golang_x_time//rate",
     ],
+)
+
+alias(
+    name = "go_default_library",
+    actual = ":logging",
+    visibility = ["//visibility:public"],
 )
 
 go_test(

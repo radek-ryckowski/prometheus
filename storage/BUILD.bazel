@@ -14,20 +14,26 @@ go_library(
         "secondary.go",
         "series.go",
     ],
-    importpath = "github.com/example/project/storage",
+    importpath = "github.com/prometheus/prometheus/storage",
     visibility = ["//visibility:public"],
     deps = [
+        "//model/exemplar",
+        "//model/labels",
+        "//tsdb/chunkenc",
+        "//tsdb/chunks",
+        "//tsdb/errors",
+        "//tsdb/tsdbutil",
         "@com_github_go_kit_log//:log",
         "@com_github_go_kit_log//level",
         "@com_github_pkg_errors//:errors",
         "@com_github_prometheus_common//model",
-        "@com_github_prometheus_prometheus//model/exemplar:go_default_library",
-        "@com_github_prometheus_prometheus//model/labels:go_default_library",
-        "@com_github_prometheus_prometheus//tsdb/chunkenc:go_default_library",
-        "@com_github_prometheus_prometheus//tsdb/chunks:go_default_library",
-        "@com_github_prometheus_prometheus//tsdb/errors:go_default_library",
-        "@com_github_prometheus_prometheus//tsdb/tsdbutil:go_default_library",
     ],
+)
+
+alias(
+    name = "go_default_library",
+    actual = ":storage",
+    visibility = ["//visibility:public"],
 )
 
 go_test(
@@ -41,13 +47,12 @@ go_test(
     ],
     embed = [":storage"],
     deps = [
+        "//model/labels",
+        "//tsdb/chunkenc",
+        "//tsdb/tsdbutil",
+        "//util/teststorage",
         "@com_github_pkg_errors//:errors",
         "@com_github_prometheus_common//model",
-        "@com_github_prometheus_prometheus//model/labels:go_default_library",
-        "@com_github_prometheus_prometheus//storage:go_default_library",
-        "@com_github_prometheus_prometheus//tsdb/chunkenc:go_default_library",
-        "@com_github_prometheus_prometheus//tsdb/tsdbutil:go_default_library",
-        "@com_github_prometheus_prometheus//util/teststorage:go_default_library",
         "@com_github_stretchr_testify//require",
     ],
 )

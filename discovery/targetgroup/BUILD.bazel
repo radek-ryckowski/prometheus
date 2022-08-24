@@ -3,9 +3,15 @@ load("@io_bazel_rules_go//go:def.bzl", "go_library", "go_test")
 go_library(
     name = "targetgroup",
     srcs = ["targetgroup.go"],
-    importpath = "github.com/example/project/discovery/targetgroup",
+    importpath = "github.com/prometheus/prometheus/discovery/targetgroup",
     visibility = ["//visibility:public"],
     deps = ["@com_github_prometheus_common//model"],
+)
+
+alias(
+    name = "go_default_library",
+    actual = ":targetgroup",
+    visibility = ["//visibility:public"],
 )
 
 go_test(

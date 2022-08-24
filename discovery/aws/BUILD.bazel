@@ -6,9 +6,13 @@ go_library(
         "ec2.go",
         "lightsail.go",
     ],
-    importpath = "github.com/example/project/discovery/aws",
+    importpath = "github.com/prometheus/prometheus/discovery/aws",
     visibility = ["//visibility:public"],
     deps = [
+        "//discovery",
+        "//discovery/refresh",
+        "//discovery/targetgroup",
+        "//util/strutil",
         "@com_github_aws_aws_sdk_go//aws",
         "@com_github_aws_aws_sdk_go//aws/awserr",
         "@com_github_aws_aws_sdk_go//aws/credentials",
@@ -22,9 +26,11 @@ go_library(
         "@com_github_pkg_errors//:errors",
         "@com_github_prometheus_common//config",
         "@com_github_prometheus_common//model",
-        "@com_github_prometheus_prometheus//discovery:go_default_library",
-        "@com_github_prometheus_prometheus//discovery/refresh:go_default_library",
-        "@com_github_prometheus_prometheus//discovery/targetgroup:go_default_library",
-        "@com_github_prometheus_prometheus//util/strutil:go_default_library",
     ],
+)
+
+alias(
+    name = "go_default_library",
+    actual = ":aws",
+    visibility = ["//visibility:public"],
 )

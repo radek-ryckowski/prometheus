@@ -11,17 +11,23 @@ go_library(
         "printer.go",
         "value.go",
     ],
-    importpath = "github.com/example/project/promql/parser",
+    importpath = "github.com/prometheus/prometheus/promql/parser",
     visibility = ["//visibility:public"],
     deps = [
+        "//model/labels",
+        "//model/timestamp",
+        "//model/value",
+        "//storage",
+        "//util/strutil",
         "@com_github_pkg_errors//:errors",
         "@com_github_prometheus_common//model",
-        "@com_github_prometheus_prometheus//model/labels:go_default_library",
-        "@com_github_prometheus_prometheus//model/timestamp:go_default_library",
-        "@com_github_prometheus_prometheus//model/value:go_default_library",
-        "@com_github_prometheus_prometheus//storage:go_default_library",
-        "@com_github_prometheus_prometheus//util/strutil:go_default_library",
     ],
+)
+
+alias(
+    name = "go_default_library",
+    actual = ":parser",
+    visibility = ["//visibility:public"],
 )
 
 go_test(
@@ -33,9 +39,9 @@ go_test(
     ],
     embed = [":parser"],
     deps = [
+        "//model/labels",
         "@com_github_pkg_errors//:errors",
         "@com_github_prometheus_common//model",
-        "@com_github_prometheus_prometheus//model/labels:go_default_library",
         "@com_github_stretchr_testify//require",
     ],
 )

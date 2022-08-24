@@ -6,7 +6,7 @@ go_library(
         "client.go",
         "tagvalue.go",
     ],
-    importpath = "github.com/example/project/documentation/examples/remote_storage/remote_storage_adapter/opentsdb",
+    importpath = "github.com/prometheus/prometheus/documentation/examples/remote_storage/remote_storage_adapter/opentsdb",
     visibility = ["//visibility:public"],
     deps = [
         "@com_github_go_kit_log//:log",
@@ -14,6 +14,12 @@ go_library(
         "@com_github_pkg_errors//:errors",
         "@com_github_prometheus_common//model",
     ],
+)
+
+alias(
+    name = "go_default_library",
+    actual = ":opentsdb",
+    visibility = ["//visibility:public"],
 )
 
 go_test(

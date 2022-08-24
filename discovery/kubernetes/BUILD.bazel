@@ -13,9 +13,12 @@ go_library(
         "pod.go",
         "service.go",
     ],
-    importpath = "github.com/example/project/discovery/kubernetes",
+    importpath = "github.com/prometheus/prometheus/discovery/kubernetes",
     visibility = ["//visibility:public"],
     deps = [
+        "//discovery",
+        "//discovery/targetgroup",
+        "//util/strutil",
         "@com_github_go_kit_log//:log",
         "@com_github_go_kit_log//level",
         "@com_github_pkg_errors//:errors",
@@ -23,9 +26,6 @@ go_library(
         "@com_github_prometheus_common//config",
         "@com_github_prometheus_common//model",
         "@com_github_prometheus_common//version",
-        "@com_github_prometheus_prometheus//discovery:go_default_library",
-        "@com_github_prometheus_prometheus//discovery/targetgroup:go_default_library",
-        "@com_github_prometheus_prometheus//util/strutil:go_default_library",
         "@io_k8s_api//core/v1:core",
         "@io_k8s_api//discovery/v1beta1",
         "@io_k8s_api//networking/v1:networking",
@@ -45,6 +45,12 @@ go_library(
     ],
 )
 
+alias(
+    name = "go_default_library",
+    actual = ":kubernetes",
+    visibility = ["//visibility:public"],
+)
+
 go_test(
     name = "kubernetes_test",
     srcs = [
@@ -58,12 +64,12 @@ go_test(
     ],
     embed = [":kubernetes"],
     deps = [
+        "//discovery",
+        "//discovery/targetgroup",
+        "//util/testutil",
         "@com_github_go_kit_log//:log",
         "@com_github_pkg_errors//:errors",
         "@com_github_prometheus_common//model",
-        "@com_github_prometheus_prometheus//discovery:go_default_library",
-        "@com_github_prometheus_prometheus//discovery/targetgroup:go_default_library",
-        "@com_github_prometheus_prometheus//util/testutil:go_default_library",
         "@com_github_stretchr_testify//require",
         "@io_k8s_api//core/v1:core",
         "@io_k8s_api//discovery/v1beta1",

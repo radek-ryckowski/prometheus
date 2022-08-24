@@ -7,17 +7,23 @@ go_library(
         "postings.go",
         "postingsstats.go",
     ],
-    importpath = "github.com/example/project/tsdb/index",
+    importpath = "github.com/prometheus/prometheus/tsdb/index",
     visibility = ["//visibility:public"],
     deps = [
+        "//model/labels",
+        "//storage",
+        "//tsdb/chunks",
+        "//tsdb/encoding",
+        "//tsdb/errors",
+        "//tsdb/fileutil",
         "@com_github_pkg_errors//:errors",
-        "@com_github_prometheus_prometheus//model/labels:go_default_library",
-        "@com_github_prometheus_prometheus//storage:go_default_library",
-        "@com_github_prometheus_prometheus//tsdb/chunks:go_default_library",
-        "@com_github_prometheus_prometheus//tsdb/encoding:go_default_library",
-        "@com_github_prometheus_prometheus//tsdb/errors:go_default_library",
-        "@com_github_prometheus_prometheus//tsdb/fileutil:go_default_library",
     ],
+)
+
+alias(
+    name = "go_default_library",
+    actual = ":index",
+    visibility = ["//visibility:public"],
 )
 
 go_test(
@@ -29,13 +35,13 @@ go_test(
     ],
     embed = [":index"],
     deps = [
+        "//model/labels",
+        "//storage",
+        "//tsdb/chunkenc",
+        "//tsdb/chunks",
+        "//tsdb/encoding",
+        "//util/testutil",
         "@com_github_pkg_errors//:errors",
-        "@com_github_prometheus_prometheus//model/labels:go_default_library",
-        "@com_github_prometheus_prometheus//storage:go_default_library",
-        "@com_github_prometheus_prometheus//tsdb/chunkenc:go_default_library",
-        "@com_github_prometheus_prometheus//tsdb/chunks:go_default_library",
-        "@com_github_prometheus_prometheus//tsdb/encoding:go_default_library",
-        "@com_github_prometheus_prometheus//util/testutil:go_default_library",
         "@com_github_stretchr_testify//require",
         "@org_uber_go_goleak//:goleak",
     ],

@@ -3,18 +3,24 @@ load("@io_bazel_rules_go//go:def.bzl", "go_library", "go_test")
 go_library(
     name = "digitalocean",
     srcs = ["digitalocean.go"],
-    importpath = "github.com/example/project/discovery/digitalocean",
+    importpath = "github.com/prometheus/prometheus/discovery/digitalocean",
     visibility = ["//visibility:public"],
     deps = [
+        "//discovery",
+        "//discovery/refresh",
+        "//discovery/targetgroup",
         "@com_github_digitalocean_godo//:godo",
         "@com_github_go_kit_log//:log",
         "@com_github_prometheus_common//config",
         "@com_github_prometheus_common//model",
         "@com_github_prometheus_common//version",
-        "@com_github_prometheus_prometheus//discovery:go_default_library",
-        "@com_github_prometheus_prometheus//discovery/refresh:go_default_library",
-        "@com_github_prometheus_prometheus//discovery/targetgroup:go_default_library",
     ],
+)
+
+alias(
+    name = "go_default_library",
+    actual = ":digitalocean",
+    visibility = ["//visibility:public"],
 )
 
 go_test(
