@@ -1,42 +1,42 @@
 load("@io_bazel_rules_go//go:def.bzl", "go_library", "go_test")
 
 go_library(
-    name = "scaleway",
+    name = "ionos",
     srcs = [
-        "baremetal.go",
-        "instance.go",
-        "scaleway.go",
+        "ionos.go",
+        "server.go",
     ],
-    importpath = "github.com/prometheus/prometheus/discovery/scaleway",
+    importpath = "github.com/prometheus/prometheus/discovery/ionos",
     visibility = ["//visibility:public"],
     deps = [
         "//discovery",
         "//discovery/refresh",
         "//discovery/targetgroup",
+        "//util/strutil",
         "@com_github_go_kit_log//:go_default_library",
+        "@com_github_ionos_cloud_sdk_go_v6//:go_default_library",
+        "@com_github_pkg_errors//:go_default_library",
         "@com_github_prometheus_common//config:go_default_library",
         "@com_github_prometheus_common//model:go_default_library",
         "@com_github_prometheus_common//version:go_default_library",
-        "@com_github_scaleway_scaleway_sdk_go//api/baremetal/v1:go_default_library",
-        "@com_github_scaleway_scaleway_sdk_go//api/instance/v1:go_default_library",
-        "@com_github_scaleway_scaleway_sdk_go//scw:go_default_library",
     ],
 )
 
 alias(
     name = "go_default_library",
-    actual = ":scaleway",
+    actual = ":ionos",
     visibility = ["//visibility:public"],
 )
 
 go_test(
-    name = "scaleway_test",
-    srcs = ["instance_test.go"],
+    name = "ionos_test",
+    srcs = ["server_test.go"],
     data = glob(["testdata/**"]),
-    embed = [":scaleway"],
+    embed = [":ionos"],
     deps = [
+        "@com_github_ionos_cloud_sdk_go_v6//:go_default_library",
+        "@com_github_prometheus_common//config:go_default_library",
         "@com_github_prometheus_common//model:go_default_library",
         "@com_github_stretchr_testify//require:go_default_library",
-        "@in_gopkg_yaml_v2//:go_default_library",
     ],
 )

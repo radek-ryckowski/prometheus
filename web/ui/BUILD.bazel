@@ -2,16 +2,12 @@ load("@io_bazel_rules_go//go:def.bzl", "go_library")
 
 go_library(
     name = "ui",
-    srcs = [
-        "doc.go",
-        "ui.go",
-    ],
+    srcs = ["ui.go"],
     importpath = "github.com/prometheus/prometheus/web/ui",
     visibility = ["//visibility:public"],
     deps = [
-        "@com_github_shurcool_httpfs//filter",
-        "@com_github_shurcool_httpfs//union",
-        "@com_github_shurcool_vfsgen//:vfsgen",
+        "@com_github_shurcool_httpfs//filter:go_default_library",
+        "@com_github_shurcool_httpfs//union:go_default_library",
     ],
 )
 

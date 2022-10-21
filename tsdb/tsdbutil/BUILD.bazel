@@ -3,7 +3,6 @@ load("@io_bazel_rules_go//go:def.bzl", "go_library", "go_test")
 go_library(
     name = "tsdbutil",
     srcs = [
-        "buffer.go",
         "chunks.go",
         "dir_locker.go",
         "dir_locker_testutil.go",
@@ -16,12 +15,12 @@ go_library(
         "//tsdb/errors",
         "//tsdb/fileutil",
         "//util/testutil",
-        "@com_github_go_kit_log//:log",
-        "@com_github_go_kit_log//level",
-        "@com_github_pkg_errors//:errors",
-        "@com_github_prometheus_client_golang//prometheus",
-        "@com_github_prometheus_client_golang//prometheus/testutil",
-        "@com_github_stretchr_testify//require",
+        "@com_github_go_kit_log//:go_default_library",
+        "@com_github_go_kit_log//level:go_default_library",
+        "@com_github_pkg_errors//:go_default_library",
+        "@com_github_prometheus_client_golang//prometheus:go_default_library",
+        "@com_github_prometheus_client_golang//prometheus/testutil:go_default_library",
+        "@com_github_stretchr_testify//require:go_default_library",
     ],
 )
 
@@ -33,14 +32,11 @@ alias(
 
 go_test(
     name = "tsdbutil_test",
-    srcs = [
-        "buffer_test.go",
-        "dir_locker_test.go",
-    ],
+    srcs = ["dir_locker_test.go"],
     embed = [":tsdbutil"],
     deps = [
         "//util/testutil",
-        "@com_github_go_kit_log//:log",
-        "@com_github_stretchr_testify//require",
+        "@com_github_go_kit_log//:go_default_library",
+        "@com_github_stretchr_testify//require:go_default_library",
     ],
 )

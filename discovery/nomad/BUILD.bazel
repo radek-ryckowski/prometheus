@@ -1,39 +1,34 @@
 load("@io_bazel_rules_go//go:def.bzl", "go_library", "go_test")
 
 go_library(
-    name = "legacymanager",
-    srcs = [
-        "manager.go",
-        "registry.go",
-    ],
-    importpath = "github.com/prometheus/prometheus/discovery/legacymanager",
+    name = "nomad",
+    srcs = ["nomad.go"],
+    importpath = "github.com/prometheus/prometheus/discovery/nomad",
     visibility = ["//visibility:public"],
     deps = [
         "//discovery",
+        "//discovery/refresh",
         "//discovery/targetgroup",
         "@com_github_go_kit_log//:go_default_library",
-        "@com_github_go_kit_log//level:go_default_library",
+        "@com_github_hashicorp_nomad_api//:go_default_library",
         "@com_github_prometheus_client_golang//prometheus:go_default_library",
-        "@in_gopkg_yaml_v2//:go_default_library",
+        "@com_github_prometheus_common//config:go_default_library",
+        "@com_github_prometheus_common//model:go_default_library",
     ],
 )
 
 alias(
     name = "go_default_library",
-    actual = ":legacymanager",
+    actual = ":nomad",
     visibility = ["//visibility:public"],
 )
 
 go_test(
-    name = "legacymanager_test",
-    srcs = ["manager_test.go"],
-    embed = [":legacymanager"],
+    name = "nomad_test",
+    srcs = ["nomad_test.go"],
+    embed = [":nomad"],
     deps = [
-        "//discovery",
-        "//discovery/targetgroup",
-        "//util/testutil",
         "@com_github_go_kit_log//:go_default_library",
-        "@com_github_prometheus_client_golang//prometheus/testutil:go_default_library",
         "@com_github_prometheus_common//model:go_default_library",
         "@com_github_stretchr_testify//require:go_default_library",
     ],

@@ -3,7 +3,6 @@ workspace(name = "com_github_prometheus_prometheus")
 load("@bazel_tools//tools/build_defs/repo:http.bzl", "http_archive")
 load("@bazel_tools//tools/build_defs/repo:git.bzl", "git_repository")
 
-
 http_archive(
     name = "io_bazel_rules_go",
     sha256 = "f2dcd210c7095febe54b804bb1cd3a58fe8435a909db2ec04e31542631cf715c",
@@ -21,7 +20,6 @@ http_archive(
         "https://github.com/bazelbuild/bazel-gazelle/releases/download/v0.26.0/bazel-gazelle-v0.26.0.tar.gz",
     ],
 )
-
 
 http_archive(
     name = "com_google_protobuf",
@@ -50,10 +48,10 @@ go_register_toolchains(version = "1.18.4")
 
 gazelle_dependencies()
 
-
 go_repository(
     name = "org_golang_google_grpc",
     build_file_generation = "on",
+    build_file_proto_mode = "disable",
     importpath = "google.golang.org/grpc",
     sum = "h1:WTLtQzmQori5FUH25Pq4WT22oCsv8USpQ+F6rqtsmxw=",
     version = "v1.49.0",

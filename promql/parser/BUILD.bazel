@@ -8,6 +8,7 @@ go_library(
         "generated_parser.y.go",
         "lex.go",
         "parse.go",
+        "prettier.go",
         "printer.go",
         "value.go",
     ],
@@ -19,8 +20,7 @@ go_library(
         "//model/value",
         "//storage",
         "//util/strutil",
-        "@com_github_pkg_errors//:errors",
-        "@com_github_prometheus_common//model",
+        "@com_github_prometheus_common//model:go_default_library",
     ],
 )
 
@@ -35,13 +35,13 @@ go_test(
     srcs = [
         "lex_test.go",
         "parse_test.go",
+        "prettier_test.go",
         "printer_test.go",
     ],
     embed = [":parser"],
     deps = [
         "//model/labels",
-        "@com_github_pkg_errors//:errors",
-        "@com_github_prometheus_common//model",
-        "@com_github_stretchr_testify//require",
+        "@com_github_prometheus_common//model:go_default_library",
+        "@com_github_stretchr_testify//require:go_default_library",
     ],
 )

@@ -1,9 +1,12 @@
 load("@io_bazel_rules_go//go:def.bzl", "go_library")
 
 go_library(
-    name = "install",
-    srcs = ["install.go"],
-    importpath = "github.com/prometheus/prometheus/discovery/install",
+    name = "plugins",
+    srcs = [
+        "minimum.go",
+        "plugins.go",
+    ],
+    importpath = "github.com/prometheus/prometheus/plugins",
     visibility = ["//visibility:public"],
     deps = [
         "//discovery/aws",
@@ -35,6 +38,6 @@ go_library(
 
 alias(
     name = "go_default_library",
-    actual = ":install",
+    actual = ":plugins",
     visibility = ["//visibility:public"],
 )
